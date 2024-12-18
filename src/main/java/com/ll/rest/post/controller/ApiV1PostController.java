@@ -3,7 +3,10 @@ package com.ll.rest.post.controller;
 import com.ll.rest.global.rsData.RsData;
 import com.ll.rest.post.Post;
 import com.ll.rest.post.service.PostService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,14 +43,18 @@ public class ApiV1PostController {
 
 
     record PostModifyReqBody(
+            @NotBlank
+            @Length(min = 2)
             String title,
+            @NotBlank
+            @Length(min = 2)
             String content
     ) {
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public RsData modifyItem(@PathVariable("id") long id, @RequestBody PostModifyReqBody reqBody) {
+    public RsData modifyItem(@PathVariable("id") long id, @RequestBody @Valid PostModifyReqBody reqBody) {
 
         Post post = postService.findById(id).get();
 
