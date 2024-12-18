@@ -3,10 +3,7 @@ package com.ll.rest.post.controller;
 import com.ll.rest.post.Post;
 import com.ll.rest.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,14 @@ public class ApiV1PostController {
     @GetMapping("/{id}")
     public Post getItem(@PathVariable("id") long id) {
         return postService.findById(id).get();
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteItem(@PathVariable("id") long id) {
+        Post post = postService.findById(id).get();
+
+        postService.delete(post);
+
+        return "삭제가 완료되었습니다.";
     }
 }
