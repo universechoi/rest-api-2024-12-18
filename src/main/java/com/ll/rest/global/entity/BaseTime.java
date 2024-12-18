@@ -1,4 +1,4 @@
-package global.entity;
+package com.ll.rest.global.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

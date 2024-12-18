@@ -1,4 +1,4 @@
-package global.entity;
+package com.ll.rest.global.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
