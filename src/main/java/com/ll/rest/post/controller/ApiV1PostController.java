@@ -2,6 +2,7 @@ package com.ll.rest.post.controller;
 
 import com.ll.rest.global.rsData.RsData;
 import com.ll.rest.post.Post;
+import com.ll.rest.post.PostDto;
 import com.ll.rest.post.service.PostService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -20,13 +21,20 @@ public class ApiV1PostController {
     private final PostService postService;
 
     @GetMapping
-    public List<Post> getItems() {
-        return postService.findAllByOrderByIdDesc();
+    public List<PostDto> getItems() {
+        return postService
+                .findAllByOrderByIdDesc()
+                .stream()
+                .map(PostDto::new)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Post getItem(@PathVariable("id") long id) {
-        return postService.findById(id).get();
+    public PostDto getItem(@PathVariable("id") long id) {
+
+        return postService.findById(id)
+                .map(PostDto::new)
+                .orElseThrow();
     }
 
     @DeleteMapping("/{id}")
